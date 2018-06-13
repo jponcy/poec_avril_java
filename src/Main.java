@@ -1,14 +1,16 @@
 
 public class Main {
     public static void main(String[] args) {
-        short i;
+        boolean finished = false;
+        short i = 3;
+        int j;
 
-        if (3 == 4) {
-            i = 3;
-        } else {
-            i = 2;
-        }
+        do {
+            j = i % 10;
+            i ++;
+            finished = j == 3;
+        } while (!finished);
 
-        i = (3 == 4 ? 3 : 2);
+        System.out.println(j);
     }
 }
