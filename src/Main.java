@@ -1,16 +1,10 @@
 
 public class Main {
     public static void main(String[] args) {
-        boolean finished = false;
-        short i = 3;
-        int j;
+        for (int i = 3; i <= 10; ++ i) {
+            System.out.println(i);
+        }
 
-        do {
-            j = i % 10;
-            i ++;
-            finished = j == 3;
-        } while (!finished);
-
-        System.out.println(j);
+        System.out.println("Fini");
     }
 }
