@@ -5,14 +5,16 @@ public class Main {
         i = 2;
         i = j = 3;
 
-        boolean test = (i == 3);
-
-        if (test) {
-            System.out.println("J'avais 3 pommes");
-        } else if (i == 2) {
-            System.out.println("Pas si mal !");
-        } else {
-            System.out.println(":'(");
+        switch (i) {
+            case 3:
+                System.out.println("J'avais 3 pommes");
+                break;
+            case 2:
+                System.out.println("Pas si mal !");
+                break;
+            default:
+                System.out.println(":'(");
+                break;
         }
     }
 }
