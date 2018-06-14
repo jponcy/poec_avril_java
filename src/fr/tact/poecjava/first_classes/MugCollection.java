@@ -13,17 +13,60 @@ public class MugCollection {
     }
 
     public void printStore() {
-        System.out.println("Avalable mugs:");
         Mug mug;
+        int nameWidth = this.nameMaxLength();
+        String line;
+        String separator = "+-" + this.repeatChar(nameWidth, '-') + "-+-------+--------------------------------+";
+        String colTitles = "| " + this.repeatChar(nameWidth - 4, ' ') +"Name | Stock | Description                    |";
+
+        System.out.println(separator);
+        System.out.println(colTitles);
+        System.out.println(separator);
 
         for (int i = 0; i < this.nb; ++ i) {
             mug = this.mugs[i];
-            String msg = String.format(" - %03d x %s", mug.getStock(), mug.getName());
-            System.out.println(msg);
+            line = "| ";
 
-            if (mug.getDescription() != null && !"".equals(mug.getDescription())) {
-                System.out.println("   " + mug.getDescription());
+            String spaces = this.repeatChar(nameWidth - mug.getName().length(), ' ');
+            line += spaces;
+
+            String description;
+
+            if (mug.getDescription() == null) {
+                description = this.repeatChar(30, ' ');
+            } else {
+                description = String.format("%-30s",
+                        mug.getDescription().substring(0, Math.min(30, mug.getDescription().length())));
             }
+
+            line += mug.getName()
+                    + " | "
+                    + String.format("%5d", mug.getStock())
+                    + " | "
+                    + description
+                    + " |";
+
+            System.out.println(line);
         }
+
+        System.out.println(separator);
+    }
+
+    private int nameMaxLength() {
+        int max = 0;
+
+        for (int i = 0; i < this.nb; ++ i) {
+            max = Math.max(max, this.mugs[i].getName().length());
+        }
+
+        return max;
+    }
+
+    private String repeatChar(int spaceNumber, char c) {
+        String spaces = "";
+
+        for (int i = 0; i < spaceNumber; ++ i) spaces += c;
+
+        return spaces;
     }
 }
