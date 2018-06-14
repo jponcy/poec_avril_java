@@ -10,12 +10,16 @@ public class MoreOrLess {
         boolean notFound;
         Integer lastInput = null;
 
-        System.out.println("Essayez de trouver le chiffre mistère ({0, " + Integer.MAX_VALUE + "})");
+        System.out.println("Essayez de trouver le chiffre mistère");
         // System.out.println("Indice, c'est " + mistery);
         Scanner scan = new Scanner(System.in);
 
         do {
-            line = scan.nextLine();
+            do {
+                System.out.println("Saisir un nombre entre 0 et " + Integer.MAX_VALUE);
+                line = scan.nextLine();
+            } while (!isInt(line));
+
             input = Integer.parseInt(line);
 
             if ((notFound = mistery != input)) {
@@ -37,4 +41,14 @@ public class MoreOrLess {
 
         scan.close();
     } // !main.
+
+    private static boolean isInt(String value) {
+        for (char c : value.toCharArray()) {
+            if (!(c >= '0' && c <= '9')) {
+                return false;
+            }
+        }
+
+        return ("" + Integer.MAX_VALUE).compareTo(value) > 0;
+    }
 }
