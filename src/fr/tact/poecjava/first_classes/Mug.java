@@ -5,7 +5,7 @@ public class Mug {
 
     private String name;
 
-    private float price;
+    private float price = -1f;
 
     private int stock = 0;
 
@@ -28,9 +28,11 @@ public class Mug {
         return price;
     }
 
-    /** @param price The price to set. */
-    public void setPrice(float price) {
+    /** @param price The price to set.
+     * @return */
+    public Mug setPrice(float price) {
         this.price = price;
+        return this;
     }
 
     /** @return the stock */

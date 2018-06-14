@@ -9,7 +9,8 @@ public class Main {
         store.addMug(new Mug()
                 .setName("Meilleure maman du monde")
                 .setStock(32)
-                .setDescription("Un classique"));
+                .setDescription("Un classique")
+                .setPrice(10f));
         store.addMug(new Mug().setName("C'est MON mug!").setStock(3));
         store.addMug(new Mug()
                 .setName("Meilleur papa du monde")

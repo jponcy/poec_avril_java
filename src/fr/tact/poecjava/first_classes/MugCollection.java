@@ -16,8 +16,8 @@ public class MugCollection {
         Mug mug;
         int nameWidth = this.nameMaxLength();
         String line;
-        String separator = "+-" + this.repeatChar(nameWidth, '-') + "-+-------+--------------------------------+";
-        String colTitles = "| " + this.repeatChar(nameWidth - 4, ' ') +"Name | Stock | Description                    |";
+        String separator = "+-" + this.repeatChar(nameWidth, '-') + "-+------+-------+--------------------------------+";
+        String colTitles = "| " + this.repeatChar(nameWidth - 4, ' ') +"Name | Prix | Stock | Description                    |";
 
         System.out.println(separator);
         System.out.println(colTitles);
@@ -40,6 +40,8 @@ public class MugCollection {
             }
 
             line += mug.getName()
+                    + " | "
+                    + String.format("%4s", (mug.getPrice() < 0 ? "" : mug.getPrice()))
                     + " | "
                     + String.format("%5d", mug.getStock())
                     + " | "
