@@ -1,3 +1,4 @@
+package fr.tact.poecjava.procedural;
 
 public class Main {
     public static void main(String[] args) {
