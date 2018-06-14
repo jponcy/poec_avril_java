@@ -12,12 +12,12 @@ public class MugCollection {
         this.nb++;
     }
 
-    public void printStore() {
+    private void printSimpleStore(boolean shouldDrawPrice) {
         Mug mug;
         int nameWidth = this.nameMaxLength();
         String line;
-        String separator = "+-" + this.repeatChar(nameWidth, '-') + "-+------+-------+--------------------------------+";
-        String colTitles = "| " + this.repeatChar(nameWidth - 4, ' ') +"Name | Prix | Stock | Description                    |";
+        String separator = "+-" + this.repeatChar(nameWidth, '-') + "-+" + (shouldDrawPrice ? "------+" : "") + "-------+--------------------------------+";
+        String colTitles = "| " + this.repeatChar(nameWidth - 4, ' ') +"Name | " + (shouldDrawPrice ? "Prix | " : "") + "Stock | Description                    |";
 
         System.out.println(separator);
         System.out.println(colTitles);
@@ -39,11 +39,11 @@ public class MugCollection {
                         mug.getDescription().substring(0, Math.min(30, mug.getDescription().length())));
             }
 
-            line += mug.getName()
-                    + " | "
-                    + String.format("%4s", (mug.getPrice() < 0 ? "" : mug.getPrice()))
-                    + " | "
-                    + String.format("%5d", mug.getStock())
+            line += mug.getName() + " | ";
+
+            if (shouldDrawPrice) line += String.format("%4s", (mug.getPrice() == null ? "" : mug.getPrice())) + " | ";
+
+            line += String.format("%5d", mug.getStock())
                     + " | "
                     + description
                     + " |";
@@ -52,6 +52,28 @@ public class MugCollection {
         }
 
         System.out.println(separator);
+    }
+
+    public void printStore() {
+        MugCollection withPrice = new MugCollection();
+        MugCollection withoutPrice = new MugCollection();
+
+        for (int i = 0; i < this.nb; ++ i) {
+            Mug mug = this.mugs[i];
+
+            if (mug.getPrice() == null) {
+                withoutPrice.addMug(mug);
+            } else {
+                withPrice.addMug(mug);
+            }
+        }
+
+        System.out.println("Availables:");
+        withPrice.printSimpleStore(true);
+        System.out.println();
+
+        System.out.println("Soon:");
+        withoutPrice.printSimpleStore(false);
     }
 
     private int nameMaxLength() {
