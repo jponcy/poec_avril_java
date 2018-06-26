@@ -1,5 +1,6 @@
 package fr.tact.poecjava.hangman;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -12,6 +13,7 @@ public class Main {
         boolean notFound = true;
         int lives = 5;
         int missingFoundLetterNumber = mystery.length();
+        ArrayList<String> tries = new ArrayList<>();
 
         // Initialize state.
         for (int i = 0; i < mystery.length(); ++ i) {
@@ -22,11 +24,27 @@ public class Main {
 
         // Main loop - game.
         do {
+            if (!tries.isEmpty()) {
+                System.out.print("\nYou already try following items: " + String.join(", ", tries));
+                /* Other possibilities to write list items.
+                for (String s : tries) System.out.print(s);
+
+                tries.forEach(elt -> System.out.print(elt));
+
+                tries.forEach(System.out::print);
+                */
+            }
+
             System.out.print("\nYou have " + lives + " lives. State: ");
             for (char letter : state) System.out.print(letter);
             System.out.println(". Do your try (letter or word):");
 
             String input = scanner.nextLine().trim();
+
+            // Record try.
+            if (!tries.contains(input)) {
+                tries.add(input);
+            }
 
             switch (input.length()) {
             case 0:
