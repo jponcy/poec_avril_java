@@ -24,12 +24,20 @@ public class Main {
     }
 
     private static void printWelcomMessage(String[] words) {
-        String message = "Write a word (among: ";
+        StringBuilder builder = new StringBuilder();
 
-        for (String word : words) {
-            message += ", " + word;
+        builder.append("Write a word (among: ");
+
+        for (int i = 0; i < words.length; ++ i) {
+            if (i > 0) {
+                builder.append(", ");
+            }
+
+            builder.append(words[i]);
         }
 
-        System.out.println(message.replaceFirst(", ", "") + ")");
+        builder.append(")");
+
+        System.out.println(builder.toString());
     }
 }
