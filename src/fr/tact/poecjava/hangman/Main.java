@@ -5,29 +5,74 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        String words[] = new String[] {"bottle", "cartridge", "ink", "dog", "cat", "pig"};
-        String mystery = words[new Random().nextInt(words.length)];
+//        final String words[] = new String[] {"bottle", "cartridge", "ink", "dog", "cat", "pig"};
+        final String words[] = new String[] {"iiooaa"};
+        final String mystery = words[new Random().nextInt(words.length)];
+        final char state[] = new char[mystery.length()];
         Scanner scanner = new Scanner(System.in);
         boolean notFound = true;
         int lives = 5;
+        int missingFoundLetterNumber = mystery.length();
+
+        // Initialize state.
+        for (int i = 0; i < mystery.length(); ++ i) {
+            state[i] = '_';
+        }
 
         printWelcomMessage(words);
 
+        // Main loop - game.
         do {
-            System.out.println("\nYou have " + lives + " lives. Do your try:");
-            String input = scanner.nextLine();
+            System.out.print("\nYou have " + lives + " lives. State: ");
+            for (char letter : state) System.out.print(letter);
+            System.out.println(". Do your try (letter or word):");
 
-            if (mystery.equals(input.toLowerCase())) {
-                notFound = false;
-            } else {
-                System.out.println("Not correct response");
+            String input = scanner.nextLine().trim();
+
+            switch (input.length()) {
+            case 0:
+                continue;
+
+            case 1: // Letter.
+                char letter = input.charAt(0);
+                int counter = 0;
+                boolean found = false;
+
+                for (char c : mystery.toCharArray()) {
+                    if (c == letter && state[counter] == '_') {
+                        state[counter] = letter;
+                        found = true;
+                        -- missingFoundLetterNumber;
+                    }
+
+                    ++ counter;
+                }
+
+                if (found) {
+                    if (missingFoundLetterNumber == 0) {
+                        notFound = false;
+                    }
+                } else {
+                    -- lives;
+                }
+
+                break;
+
+            default: // Word.
+                if (mystery.equals(input.toLowerCase())) {
+                    notFound = false;
+                } else {
+                    System.out.println("Not correct response");
+                    -- lives;
+                }
+                break;
             }
-        } while (notFound && -- lives > 0);
+        } while (notFound && lives > 0);
 
         if (notFound) {
             System.out.println("Too bad.");
         } else {
-            System.out.println("You won");
+            System.out.println("Congratulation, you won the game.");
         }
 
         // Close external resources.
