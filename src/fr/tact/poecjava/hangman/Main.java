@@ -5,8 +5,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-//        final String words[] = new String[] {"bottle", "cartridge", "ink", "dog", "cat", "pig"};
-        final String words[] = new String[] {"iiooaa"};
+        final String words[] = new String[] {"bottle", "cartridge", "ink", "dog", "cat", "pig"};
         final String mystery = words[new Random().nextInt(words.length)];
         final char state[] = new char[mystery.length()];
         Scanner scanner = new Scanner(System.in);
@@ -39,10 +38,16 @@ public class Main {
                 boolean found = false;
 
                 for (char c : mystery.toCharArray()) {
-                    if (c == letter && state[counter] == '_') {
-                        state[counter] = letter;
+                    if (c == letter) {
                         found = true;
-                        -- missingFoundLetterNumber;
+
+                        if (state[counter] == '_') {
+                            state[counter] = letter;
+                            -- missingFoundLetterNumber;
+                        } else {
+                            System.out.println("You already has tried " + letter);
+                            break; // Out of for loop.
+                        }
                     }
 
                     ++ counter;
