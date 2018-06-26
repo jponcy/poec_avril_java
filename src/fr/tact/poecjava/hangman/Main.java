@@ -8,16 +8,20 @@ public class Main {
         String words[] = new String[] {"bottle", "cartridge", "ink", "dog", "cat", "pig"};
         String mystery = words[new Random().nextInt(words.length)];
         Scanner scanner = new Scanner(System.in);
+        boolean notFound = true;
 
         printWelcomMessage(words);
 
-        String input = scanner.nextLine();
+        do {
+            String input = scanner.nextLine();
 
-        if (mystery.equals(input.toLowerCase())) {
-            System.out.println("You won");
-        } else {
-            System.out.println("You are a big looser!");
-        }
+            if (mystery.equals(input.toLowerCase())) {
+                System.out.println("You won");
+                notFound = false;
+            } else {
+                System.out.println("Game over. Insert a coin.");
+            }
+        } while (notFound);
 
         // Close external resources.
         scanner.close();
