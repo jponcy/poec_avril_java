@@ -9,19 +9,26 @@ public class Main {
         String mystery = words[new Random().nextInt(words.length)];
         Scanner scanner = new Scanner(System.in);
         boolean notFound = true;
+        int lives = 5;
 
         printWelcomMessage(words);
 
         do {
+            System.out.println("\nYou have " + lives + " lives. Do your try:");
             String input = scanner.nextLine();
 
             if (mystery.equals(input.toLowerCase())) {
-                System.out.println("You won");
                 notFound = false;
             } else {
-                System.out.println("Game over. Insert a coin.");
+                System.out.println("Not correct response");
             }
-        } while (notFound);
+        } while (notFound && -- lives > 0);
+
+        if (notFound) {
+            System.out.println("Too bad.");
+        } else {
+            System.out.println("You won");
+        }
 
         // Close external resources.
         scanner.close();
