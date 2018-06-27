@@ -1,7 +1,7 @@
 
 package fr.tact.poecjava.courses.objects;
 
-public class Person {
+public abstract class Person implements People {
 
     private String name;
 

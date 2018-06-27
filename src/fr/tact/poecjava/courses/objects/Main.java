@@ -4,21 +4,16 @@ package fr.tact.poecjava.courses.objects;
 public class Main {
 
     public static void main(String[] args) {
-        Person persons[] = new Person[] {
-            new Person(/* name */ "toto", /* age */ 106),
-            new Person("jo", 29),
+        People persons[] = new Person[] {
+            new Employee(/* name */ "toto", /* age */ 106),
+            new Employee("jo", 29),
             new Customer("Crésus", 1000000042)
         };
 
         System.out.println("Liste des personnes enregistrées :");
 
-        for (Person p : persons) {
-            // if (p.getClass().getName().equals(Customer.class.getName())) {
-            if (p instanceof Customer) {
-                Customer c = (Customer) p;
-                c.register();
-            }
-
+        for (People p : persons) {
+            p.register();
             System.out.println(" - " + p);
         }
     }
