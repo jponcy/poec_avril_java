@@ -100,13 +100,29 @@ public class Main {
                 }
 
                 System.out.println();
-                System.out.print("Votre choix (saisir le chiffre) : ");
+                Hero selectedHero = null;
 
-                // TODO: Validation with exception.
-                String line = scanner.nextLine();
-                int heroIndex = Integer.parseInt(line);
-                Hero selectedHero = player.getHeroes().get(heroIndex - 1);
-                System.out.println("Connexion en cours, avec le héro " + selectedHero);
+                do {
+                    System.out.print("Votre choix (saisir le chiffre entre 1 et "
+                                + player.getHeroes().size() + ") : ");
+                    String line = null;
+
+                    try {
+                        line = scanner.nextLine();
+                        int heroIndex = Integer.parseInt(line);
+
+                        if (heroIndex > 0 && heroIndex <= player.getHeroes().size()) {
+                            selectedHero = player.getHeroes().get(heroIndex - 1);
+                            System.out.println("Connexion en cours, avec le héro " + selectedHero);
+                        } else {
+                            System.out.println("Le nombre saisie est trop petit ou trop grand");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println(line + " n'est pas un nombre");
+                    }/* catch (IndexOutOfBoundsException e) {
+                        System.out.println("Le nombre saisie est trop petit ou trop grand");
+                    }*/ // Commented due to managed before: if (heroIndex > 0 && heroIndex <= player.getHeroes().size()).
+                } while (selectedHero == null);
 
                 break;
             }
