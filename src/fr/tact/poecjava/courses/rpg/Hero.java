@@ -3,19 +3,20 @@ package fr.tact.poecjava.courses.rpg;
 
 public class Hero {
     private String name;
-    private String heroClass;
+    private HeroClass heroClass;
+    private int level = 1;
 
     public Hero() {
     }
 
-    public Hero(String name, String heroClass) {
+    public Hero(String name, HeroClass heroClass) {
         this.setName(name);
         this.setHeroClass(heroClass);
     }
 
     @Override
     public String toString() {
-        return this.getName() + " (" + this.getHeroClass() + ")";
+        return this.getName() + " (" + this.getHeroClass().getName() + ")";
     }
 
     /**
@@ -35,14 +36,22 @@ public class Hero {
     /**
      * @return the heroClass
      */
-    public final String getHeroClass() {
-        return heroClass;
+    public final HeroClass getHeroClass() {
+        return this.heroClass;
     }
 
     /**
      * @param heroClass The heroClass to set.
      */
-    public final void setHeroClass(String heroClass) {
-        this.heroClass = heroClass.toLowerCase().trim();
+    public final void setHeroClass(HeroClass heroClass) {
+        this.heroClass = heroClass;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void levelUp() {
+        ++ this.level;
     }
 }
