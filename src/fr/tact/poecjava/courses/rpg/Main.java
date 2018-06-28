@@ -9,8 +9,12 @@ public class Main {
 
     public static void main(String[] args) {
         List<Player> players = Arrays.asList(
-                new Player("darkkillerdu35", "sesame"),
-                new Player("dez", "dez"),
+                new Player("darkkillerdu35", "sesame")
+                    .addHero(new Hero("TheBestBeast", "gladiateur")),
+                new Player("dez", "dez")
+                    .addHero(new Hero("thedezman", "paladin"))
+                    .addHero(new Hero("thedezvision", "oracle"))
+                    .addHero(new Hero("dezdeztheheal", "redempteur")),
                 new Player("thebest", "2log"));
 
         Scanner scanner = new Scanner(System.in);
@@ -72,14 +76,40 @@ public class Main {
 
         boolean correctLogin = false;
         int i = 0;
+        Player player;
 
         do {
-            correctLogin = players.get(i).checkLogin(username, password);
+            player = players.get(i);
+            correctLogin = player.checkLogin(username, password);
             ++ i;
         } while (!correctLogin && i < players.size());
 
         if (correctLogin) {
             System.out.println("Vous êtes désormais connecté");
+
+            switch (player.getHeroes().size()) {
+            case 0:
+                System.err.println("Vous n'avez pas encore de personnage");
+                break;
+            default:
+                System.out.println("Avec quel personnage voulez-vous vous connecter ?");
+
+                for (int heroIndex = 1; heroIndex <= player.getHeroes().size(); ++ heroIndex) {
+                    Hero hero = player.getHeroes().get(heroIndex - 1);
+                    System.out.println(heroIndex + ") " + hero);
+                }
+
+                System.out.println();
+                System.out.print("Votre choix (saisir le chiffre) : ");
+
+                // TODO: Validation with exception.
+                String line = scanner.nextLine();
+                int heroIndex = Integer.parseInt(line);
+                Hero selectedHero = player.getHeroes().get(heroIndex - 1);
+                System.out.println("Connexion en cours, avec le héro " + selectedHero);
+
+                break;
+            }
         } else {
             System.out.println("Echec de connexion");
         }
